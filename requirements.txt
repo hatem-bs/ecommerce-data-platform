@@ -20,6 +20,8 @@ great-expectations==0.18.8
 # SPARK (local development)
 # =======================
 pyspark==3.5.0
+# Note: Must match your Spark version
+# For Spark 3.5.0, use hadoop-aws 3.3.4
 
 # =======================
 # UTILITIES
@@ -36,9 +38,9 @@ pytest-cov==4.1.0
 # =======================
 # CODE QUALITY
 # =======================
-black==23.12.1
+#black==23.12.1
 #pylint==4.0.0
-flake8==7.0.0
+#flake8==7.0.0
 
 # =======================
 # DOCS

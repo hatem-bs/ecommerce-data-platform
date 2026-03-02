@@ -69,3 +69,16 @@ logs/
 .terraform/
 *.tfstate
 *.tfstate.backup
+
+# ======================
+# PySpark
+# ======================
+metastore_db/
+derby.log
+spark-warehouse/
+
+# ======================
+# PySpark
+# ======================
+jars/
+*.jar
