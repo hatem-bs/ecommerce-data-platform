@@ -34,7 +34,7 @@ LOGS_DIR.mkdir(parents=True, exist_ok=True)
 # ============================================================================
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-AWS_REGION = os.getenv("AWS_REGION")
+AWS_REGION = os.getenv("AWS_REGION", os.getenv("AWS_DEFAULT_REGION"))
 AWS_DEFAULT_REGION = os.getenv("AWS_DEFAULT_REGION")
 
 # ============================================================================
@@ -55,20 +55,23 @@ SPARK_APP_NAME = "ecommerce-data-platform"
 # Spark master (local for development, yarn/k8s for production)
 SPARK_MASTER = os.getenv("SPARK_MASTER", "local[*]")
 SPARK_CONFIGS: dict = {
-    # AWS S3 access
+    # --- S3A Connector ---
     "spark.hadoop.fs.s3a.access.key": AWS_ACCESS_KEY_ID,
     "spark.hadoop.fs.s3a.secret.key": AWS_SECRET_ACCESS_KEY,
     "spark.hadoop.fs.s3a.endpoint": f"s3.{AWS_REGION}.amazonaws.com",
     "spark.hadoop.fs.s3a.impl": "org.apache.hadoop.fs.s3a.S3AFileSystem",
-    # Optimization
+    "spark.hadoop.fs.s3a.fast.upload.buffer": "bytebuffer",
+    # --- Windows compatibility ---
+    "spark.hadoop.io.native.lib.available": "false",
+    # --- Query optimization ---
     "spark.sql.adaptive.enabled": "true",
     "spark.sql.adaptive.coalescePartitions.enabled": "true",
-    # Parquet optimization
+    # --- Parquet ---
     "spark.sql.parquet.compression.codec": "snappy",
     "spark.sql.parquet.mergeSchema": "false",
-    # Memory
-    "spark.driver.memory": "4g",
-    "spark.executor.memory": "4g",
+    # --- Memory ---
+    "spark.driver.memory": "2g",
+    "spark.executor.memory": "2g",
 }
 
 

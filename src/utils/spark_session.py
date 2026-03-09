@@ -62,7 +62,7 @@ def get_spark_session(
     # Set log level to reduce verbosity
     spark.sparkContext.setLogLevel("WARN")
 
-    logger.info(f"✅ SparkSession created: {spark.version}")
+    logger.info(f"   SparkSession created: {spark.version}")
     logger.info(f"   Master: {spark.sparkContext.master}")
     logger.info(f"   App ID: {spark.sparkContext.applicationId}")
 
